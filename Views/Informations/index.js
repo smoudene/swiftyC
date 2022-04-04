@@ -1,17 +1,22 @@
 import React from 'react'
-import {Image, ImageBackground,Picker , SafeAreaView, Text, TextInput, useWindowDimensions, View,StyleSheet,Pressable, ScrollView} from "react-native";
+import {Image, ImageBackground , SafeAreaView, Text, TextInput, useWindowDimensions, View,StyleSheet,Pressable, ScrollView} from "react-native";
 import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { Picker } from "@react-native-picker/picker";
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
 
 const Informations = ({route, navigation}) => {
+  const [selectedValue, setSelectedValue] = React.useState("42Cursus");
   const userData  = route.params.data
   const coalitionsData = route.params.coalition
   const [checked, setChecked] = React.useState(true);
+  const imageCover = coalitionsData[0].image_url
+  const colName = coalitionsData[0].name
+  const lenghtC = userData?.cursus_users.length
 
   var radio_props = [
-    {label: 'Achievements', value: 0 },
-    {label: 'Projects', value: 1}
+    {label: ' Projects  ', value: 0 },
+    {label: ' Achievements', value: 1}
   ];
   const achievements = () => (
     <SafeAreaView>
@@ -56,7 +61,7 @@ const Informations = ({route, navigation}) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor : "#0f0f10"
+      backgroundColor : "#011F26"
     },
     input: {
       height: 40,
@@ -78,9 +83,10 @@ const Informations = ({route, navigation}) => {
       justifyContent: 'center',
       alignItems: 'center',
       marginBottom: 20,
-      backgroundColor : "#2b2c2d",
+      backgroundColor : "#5C7373",
       margin : 5,
       borderRadius : 10,
+      
 
   },
   cardS:{
@@ -89,15 +95,26 @@ const Informations = ({route, navigation}) => {
   cardc:{
     margin: 5,
     borderRadius:10,
-    backgroundColor : "#2b2c2d"
+    backgroundColor : "#5C7373"
   },
   scroll: {
     width: "100%",
     height: "100%",
   },
   textI : {
-    color : "#f1f2f3"
-  }
+    color : "#f1f2f3",
+    marginBottom : 2
+  },
+  radios : {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageB: {
+    flex: 1,
+    width : 100,
+    height : 100
+  },
   });
 
 
@@ -107,10 +124,32 @@ const Informations = ({route, navigation}) => {
               <View>
                   {/* <Pressable
                   style={styles.button1}
-                  onPress={()=> console.log("data", userData, "coalitions", coalitionsData)}
+                  onPress={()=> console.log("data", userData, "coalitions", coalitionsData,"lenghtttt===",lenghtC)}
                   >
                   </Pressable> */}
                   <View style={styles.container1}>
+                   {/* <ImageBackground source={imageCover} resizeMode="cover" style={styles.imageB} /> */}
+                    <Image
+                    style={{
+                      borderRadius: 50,
+                      width: 70,
+                      height: 70,
+                      overflow: 'hidden',
+                      resizeMode: 'contain',
+                      position : 'absolute',
+                      left : 0,
+                      top : 2,
+                    }}
+                    // source={ userData?.image_url }
+                    source={{uri : imageCover}}
+                    /> 
+                    <Text
+                      style={{
+                        position : 'absolute',
+                        left : 60,
+                        top :  15
+                      }}>{colName}</Text>
+                    {/* <Text></Text> */}
                   <Image
                     style={{
                       borderRadius: 50,
@@ -124,26 +163,14 @@ const Informations = ({route, navigation}) => {
                     />
                     <Text style={styles.textI}>Full Name : {userData?.displayname}</Text>
                     <Text style={styles.textI}>Login : {userData?.login}</Text>
-                    <Text style={styles.textI}>level : {userData?.cursus_users[0].level}</Text>
+                    <Text style={styles.textI}>Email : {userData?.email}</Text>
+                    <Text style={styles.textI}>Correction Points : {userData?.correction_point}</Text>
+                    <Text style={styles.textI}>level : {userData?.cursus_users[lenghtC - 1].level}</Text>
                     {/* <Progress.Bar progress={userData.cursus_users[0].level} width={200} /> */}
+                    {/* </ImageBackground> */}
                   </View>
-                  <View>
-                    {/* <TabView
-                        navigationState={{ index, routes }}
-                        renderScene={renderScene}
-                        onIndexChange={setIndex}
-                        initialLayout={{ width: layout.width }}   
-                      /> */}
-                        {/* <RadioButton
-                          value="Projects"
-                          status={ checked === 'first' ? 'checked' : 'unchecked' }
-                          onPress={() => setChecked('first')}
-                        /> 
-                        <RadioButton
-                          value="Achievements"
-                          status={ checked === 'second' ? 'checked' : 'unchecked' }
-                          onPress={() => setChecked('second')}
-                        /> */}
+                  <View style={styles.radios}>
+                    
                       <RadioForm  
                       radio_props={radio_props}
                       initial={0}
@@ -151,12 +178,18 @@ const Informations = ({route, navigation}) => {
                         }}
                         formHorizontal={true}
                         labelColor="white"
+                        selectedLabelColor="whitesmoke"
+                        buttonColor="#5C7373"
+                        selectedButtonColor="#027368"
+                        buttonWrapStyle = {{
+                          marginLeft : 5
+                        }}
                       />
                   </View>
                   <View>
                  { console.log("checkeddddd",checked)}
                     {
-                      checked == 0 ? 
+                      checked != 0 ? 
                           projects()  
                        : 
                         achievements()   

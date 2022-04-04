@@ -11,23 +11,26 @@ const Home = ({navigation}) => {
     container:{
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      backgroundColor : "#011F26"
     },
     input: {
       height: 40,
-      width: "100%",
+      width: 200,
       marginBottom: 12,
       borderWidth: 1,
       padding: 10,
       borderRadius : 5,
+      backgroundColor : "#FFF"
     },
     button: {
-      backgroundColor: "#7CE019",
-      width: '100%',
+      backgroundColor: "#5C7373",
+      width: 160,
       padding: 15,
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 5,
+      alignSelf : 'center'
   },
   });
 
