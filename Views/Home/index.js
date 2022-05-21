@@ -1,9 +1,10 @@
-import React from 'react'
+import React  from 'react'
 import {Image, ImageBackground, SafeAreaView, Text, TextInput, TouchableWithoutFeedback,ActivityIndicator , View,StyleSheet,Pressable} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {_id, _secret} from "../../helpers/data.json"
 import axios from 'axios';
 import Informations from '../Informations';
+import { useAuthRequest } from "expo-auth-session";
 
 const Home = ({navigation}) => {
 
@@ -38,15 +39,30 @@ const Home = ({navigation}) => {
   const [loading, setLoading] = React.useState(false);
 
 //   https://api.intra.42.fr/oauth/authorize?client_id=2582e5ab9cef84a4205e746b98e7b456fd1b1b68a37c7131e974daae1b3de7ac&redirect_uri=http%3A%2F%2Flocalhost%3A19006%2F&response_type=code
-  const askLogin = async () => {
-    try {
-        window.open("https://api.intra.42.fr/oauth/authorize?client_id=2582e5ab9cef84a4205e746b98e7b456fd1b1b68a37c7131e974daae1b3de7ac&redirect_uri=http%3A%2F%2Flocalhost%3A19006%2F&response_type=code") 
+const config = {
+    authorizationEndpoint: 'https://api.intra.42.fr/oauth/authorize',
+    tokenEndpoint: 'https://api.intra.42.fr/oauth/token',
+  };
 
-    } catch (error) {
-        return null;
+const [request, response, promptAsync] = useAuthRequest(
+    {
+      clientId: _id,
+      scopes: ["public"],
+      redirectUri: "exp://skmdn",
+      responseType: "code",
+    },
+    config
+  );
+React.useEffect(() => {
+    if (
+      response?.type === "success"
+    ) {
+      console.log("responseeeeee: ",response.body)
+    }else{
+        console.log("response1: ",response?.body)
     }
-};
-
+    
+  }, [response]);
   const getAccessToken = async () => {
       try {
           const token = await axios.post("https://api.intra.42.fr/oauth/token/", {
@@ -63,7 +79,6 @@ const Home = ({navigation}) => {
           return null;
       }
   };
-
   const Tokeninfos = async (token) => {
     try {
         const infos = await axios.get("https://api.intra.42.fr/oauth/token/info", {

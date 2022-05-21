@@ -2,6 +2,7 @@
   "expo": {
     "name": "swifty",
     "slug": "swifty",
+    "scheme": "com.smoudene.companion",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,9 +18,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.smoudene.companion",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.smoudene.companion",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

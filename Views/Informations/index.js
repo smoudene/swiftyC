@@ -122,26 +122,25 @@ const Informations = ({route, navigation}) => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
               <View>
+                {console.log("datatatata",coalitionsData)}
                   {/* <Pressable
                   style={styles.button1}
                   onPress={()=> console.log("data", userData, "coalitions", coalitionsData,"lenghtttt===",lenghtC)}
                   >
                   </Pressable> */}
                   <View style={styles.container1}>
-                   {/* <ImageBackground source={imageCover} resizeMode="cover" style={styles.imageB} /> */}
                     <Image
                     style={{
-                      borderRadius: 50,
-                      width: 70,
-                      height: 70,
+                      // width: 50,
+                      // height: 50,
                       overflow: 'hidden',
-                      resizeMode: 'contain',
-                      position : 'absolute',
-                      left : 0,
-                      top : 2,
+                      // resizeMode: 'cover',
+                      // position : 'absolute',
+                      // left : 0,
+                      // top : 2,
                     }}
-                    // source={ userData?.image_url }
-                    source={{uri : imageCover}}
+                    // source={ imageCover }
+                    source={{uri : imageCover , width: 50, height: 20,}}
                     /> 
                     <Text
                       style={{
@@ -152,11 +151,11 @@ const Informations = ({route, navigation}) => {
                     {/* <Text></Text> */}
                   <Image
                     style={{
-                      borderRadius: 50,
+                      borderRadius: 100,
                       width: 90,
                       height: 90,
                       overflow: 'hidden',
-                      resizeMode: 'contain',
+                      resizeMode: 'cover',
                     }}
                     // source={ userData?.image_url }
                     source={{ uri: userData?.image_url }}
